@@ -1,0 +1,169 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ # Vamos verificar exatamente como a aplicação está fazendo a autenticação
+cd /opt/vendas-app/nvs-antt2
+
+# Primeiro, vamos ver os logs em tempo real para capturar o erro exato
+pm2 logs --lines 0
+
+# Em outro terminal, vamos testar o login diretamente para ver o erro completo
+curl -X POST http://localhost:5001/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}' \
+  -v
+
+# Vamos também verificar como está a senha no banco vs como a aplicação espera
+psql -h localhost -U nvsantt -d vendas_db -c "
+SELECT username, password, LENGTH(password), 
+       CASE WHEN password LIKE '%.%' THEN 'scrypt format' ELSE 'plain text' END as format
+FROM users WHERE username = 'admin';
+"
+31|index  | 3:15:22 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:25 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:27 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:30 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:32 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:35 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:37 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:40 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:42 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:44 AM [websocket] WebSocket configurado no caminho /ws
+31|index  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+31|index  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+31|index  |     at listenInCluster (node:net:1965:12)
+31|index  |     at doListen (node:net:2139:7)
+31|index  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+31|index  |   code: 'EADDRINUSE',
+31|index  |   errno: -98,
+31|index  |   syscall: 'listen',
+31|index  |   address: '0.0.0.0',
+31|index  |   port: 5001
+31|index  | }
+PM2       | App [index:31] exited with code [1] via signal [SIGINT]
+PM2       | App [index:31] starting in -fork mode-
+PM2       | App [index:31] online
+31|index  | 3:15:47 AM [websocket] WebSocket configur

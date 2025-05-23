@@ -1,0 +1,47 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ pm2 logs --lines 0
+1|vendas-unica  | 3:18:07 AM [websocket] WebSocket configurado no caminho /ws
+1|vendas-unica  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+1|vendas-unica  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|vendas-unica  |     at listenInCluster (node:net:1965:12)
+1|vendas-unica  |     at doListen (node:net:2139:7)
+1|vendas-unica  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|vendas-unica  |   code: 'EADDRINUSE',
+1|vendas-unica  |   errno: -98,
+1|vendas-unica  |   syscall: 'listen',
+1|vendas-unica  |   address: '0.0.0.0',
+1|vendas-unica  |   port: 5001
+1|vendas-unica  | }
+PM2             | App [vendas-unica:1] exited with code [1] via signal [SIGINT]
+PM2             | App [vendas-unica:1] starting in -fork mode-
+PM2             | App [vendas-unica:1] online
+1|vendas-unica  | 3:18:10 AM [websocket] WebSocket configurado no caminho /ws
+1|vendas-unica  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+1|vendas-unica  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|vendas-unica  |     at listenInCluster (node:net:1965:12)
+1|vendas-unica  |     at doListen (node:net:2139:7)
+1|vendas-unica  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|vendas-unica  |   code: 'EADDRINUSE',
+1|vendas-unica  |   errno: -98,
+1|vendas-unica  |   syscall: 'listen',
+1|vendas-unica  |   address: '0.0.0.0',
+1|vendas-unica  |   port: 5001
+1|vendas-unica  | }
+PM2             | App [vendas-unica:1] exited with code [1] via signal [SIGINT]
+PM2             | App [vendas-unica:1] starting in -fork mode-
+PM2             | App [vendas-unica:1] online
+1|vendas-unica  | 3:18:12 AM [websocket] WebSocket configurado no caminho /ws
+1|vendas-unica  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5001
+1|vendas-unica  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|vendas-unica  |     at listenInCluster (node:net:1965:12)
+1|vendas-unica  |     at doListen (node:net:2139:7)
+1|vendas-unica  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|vendas-unica  |   code: 'EADDRINUSE',
+1|vendas-unica  |   errno: -98,
+1|vendas-unica  |   syscall: 'listen',
+1|vendas-unica  |   address: '0.0.0.0',
+1|vendas-unica  |   port: 5001
+1|vendas-unica  | }
+PM2             | App [vendas-unica:1] exited with code [1] via signal [SIGINT]
+PM2             | App [vendas-unica:1] starting in -fork mode-
+PM2             | App [vendas-unica:1] online
+1|vendas-unica  | 3:18:14 AM [websocket] WebSocket c
