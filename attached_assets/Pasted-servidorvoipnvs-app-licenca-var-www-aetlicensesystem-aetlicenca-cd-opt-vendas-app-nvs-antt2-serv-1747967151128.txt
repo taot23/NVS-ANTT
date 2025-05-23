@@ -1,0 +1,52 @@
+servidorvoipnvs@app-licenca:/var/www/aetlicensesystem/aetlicenca$ cd /opt/vendas-app/nvs-antt2
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ pm2 stop vendas-app-unico
+pm2 delete vendas-app-unico
+[PM2] Applying action stopProcessId on app [vendas-app-unico](ids: [ 28 ])
+[PM2] [vendas-app-unico](28) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 29 │ aet-license-system │ cluster  │ 0    │ online    │ 0%       │ 102.8mb  │
+│ 28 │ vendas-app-unico   │ fork     │ 8    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 45.4mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+[PM2] Applying action deleteProcessId on app [vendas-app-unico](ids: [ 28 ])
+[PM2] [vendas-app-unico](28) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 29 │ aet-license-system │ cluster  │ 0    │ online    │ 0%       │ 102.8mb  │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 45.9mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ netstat -tlnp | grep 5001
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ DATABASE_URL="postgresql://nvsantt:nvs123@localhost:5432/vendas_db" pm2 start dist/index.js --name vendas-sistema-final
+[PM2] Starting /opt/vendas-app/nvs-antt2/dist/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 29 │ aet-license-system │ cluster  │ 0    │ online    │ 0%       │ 102.8mb  │
+│ 30 │ vendas-sistema-fi… │ fork     │ 0    │ online    │ 0%       │ 22.3mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 45.5mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ curl -X POST http://localhost:5001/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}'
+Credenciais inválidasservidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ 

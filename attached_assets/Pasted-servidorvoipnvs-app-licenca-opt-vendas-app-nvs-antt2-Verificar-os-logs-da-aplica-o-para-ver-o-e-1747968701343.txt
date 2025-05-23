@@ -1,0 +1,43 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ # Verificar os logs da aplicação para ver o erro
+pm2 logs vendas-sistema-final --lines 15
+
+# Verificar se há algum processo ocupando a porta 5001
+netstat -tlnp | grep 5001
+
+# Se não houver nada, vamos tentar iniciar manualmente para ver o erro
+cd /opt/vendas-app/nvs-antt2
+DATABASE_URL="postgresql://nvsantt:nvs123@localhost:5432/vendas_db" node dist/index.js
+[TAILING] Tailing last 15 lines for [vendas-sistema-final] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/vendas-sistema-final-error.log last 15 lines:
+30|vendas- | 2:42:13 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=dmNPvoaqpvaU3PKpquKJI (resolved id: /src/main.tsx?v=dmNPvoaqpvaU3PKpquKJI). Does the file exist?
+30|vendas- | 2:42:17 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=wozfgxluu_HDGSN8cdQGB (resolved id: /src/main.tsx?v=wozfgxluu_HDGSN8cdQGB). Does the file exist?
+30|vendas- | 2:42:29 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=KNCjtJ93mnOgUa72Qlf7A (resolved id: /src/main.tsx?v=KNCjtJ93mnOgUa72Qlf7A). Does the file exist?
+30|vendas- | 2:43:30 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=ZT_KnoD81RGm2bWW6YTHe (resolved id: /src/main.tsx?v=ZT_KnoD81RGm2bWW6YTHe). Does the file exist?
+30|vendas- | 2:43:50 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=GdLp598NKeGLrp8ZTGg_n (resolved id: /src/main.tsx?v=GdLp598NKeGLrp8ZTGg_n). Does the file exist?
+30|vendas- | 2:46:51 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=Col_MLURnF9g5KDNg2p3A (resolved id: /src/main.tsx?v=Col_MLURnF9g5KDNg2p3A). Does the file exist?
+30|vendas- | 2:47:34 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=HOH--mNV2T_eOpDF0amU0 (resolved id: /src/main.tsx?v=HOH--mNV2T_eOpDF0amU0). Does the file exist?
+30|vendas- | 2:47:44 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=qvFo_i_XVV7cHRHUEMupN (resolved id: /src/main.tsx?v=qvFo_i_XVV7cHRHUEMupN). Does the file exist?
+30|vendas- | 2:47:53 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=YjDpByceb0ARAhc9ZR30W (resolved id: /src/main.tsx?v=YjDpByceb0ARAhc9ZR30W). Does the file exist?
+30|vendas- | 2:48:32 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=b5FIZMsD0Mo4AkpGoBfrw (resolved id: /src/main.tsx?v=b5FIZMsD0Mo4AkpGoBfrw). Does the file exist?
+30|vendas- | 2:48:42 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=DM_uxeY1y-cHq77DS-lzx (resolved id: /src/main.tsx?v=DM_uxeY1y-cHq77DS-lzx). Does the file exist?
+30|vendas- | 2:49:08 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=EA_kYQPK7OaVxfcj_lOQw (resolved id: /src/main.tsx?v=EA_kYQPK7OaVxfcj_lOQw). Does the file exist?
+30|vendas- | 2:49:44 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=vIVGgS6IaUQxrx-WMGxRy (resolved id: /src/main.tsx?v=vIVGgS6IaUQxrx-WMGxRy). Does the file exist?
+30|vendas- | 2:50:24 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=X48VCEJkpfwGG6-esuvYO (resolved id: /src/main.tsx?v=X48VCEJkpfwGG6-esuvYO). Does the file exist?
+30|vendas- | 2:50:26 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=sa-sHZjNHotkBIUDSKiWi (resolved id: /src/main.tsx?v=sa-sHZjNHotkBIUDSKiWi). Does the file exist?
+
+/home/servidorvoipnvs/.pm2/logs/vendas-sistema-final-out.log last 15 lines:
+30|vendas- | 2:47:54 AM [express] serving on port 5001
+30|vendas- | 2:48:33 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:48:33 AM [express] serving on port 5001
+30|vendas- | 2:48:43 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:48:43 AM [express] serving on port 5001
+30|vendas- | 2:49:09 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:49:09 AM [express] serving on port 5001
+30|vendas- | 2:49:45 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:49:45 AM [express] serving on port 5001
+30|vendas- | 2:50:15 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:50:15 AM [express] serving on port 5001
+30|vendas- | 2:50:25 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:50:25 AM [express] serving on port 5001
+30|vendas- | 2:50:27 AM [websocket] WebSocket configurado no caminho /ws
+30|vendas- | 2:50:27 AM [express] serving on port 5001

@@ -1,0 +1,49 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ # Testar apenas o login
+curl -X POST http://localhost:5001/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "admin", "password": "admin123"}' \
+  -v
+
+# Se der erro, vamos verificar se há problema de variável de ambiente
+pm2 logs vendas-app-final --lines 5
+
+# Verificar se SESSION_SECRET está definida
+pm2 env 22 | grep SESSION
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 127.0.0.1:5001...
+* Connected to localhost (127.0.0.1) port 5001 (#0)
+> POST /api/login HTTP/1.1
+> Host: localhost:5001
+> User-Agent: curl/7.88.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 45
+> 
+< HTTP/1.1 500 Internal Server Error
+< X-Powered-By: Express
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 65
+< ETag: W/"41-VwL5pO07oSC3LnKt790li4ILEtM"
+< Date: Fri, 23 May 2025 02:07:12 GMT
+< Connection: keep-alive
+< Keep-Alive: timeout=5
+< 
+* Connection #0 to host localhost left intact
+{"message":"password authentication failed for user \"nvsantt\""}[TAILING] Tailing last 5 lines for [vendas-app-final] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/vendas-app-final-out.log last 5 lines:
+22|vendas- | 2:06:34 AM [express] serving on port 5001
+22|vendas- | 2:06:37 AM [websocket] WebSocket configurado no caminho /ws
+22|vendas- | 2:06:37 AM [express] serving on port 5001
+22|vendas- | Tentativa de login para usuário: admin
+22|vendas- | 2:07:12 AM [express] POST /api/login 500 in 47ms :: {"message":"password authentication failed for u…
+
+/home/servidorvoipnvs/.pm2/logs/vendas-app-final-error.log last 5 lines:
+22|vendas- |     at /opt/vendas-app/nvs-antt2/node_modules/pg-pool/index.js:45:11
+22|vendas- |     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+22|vendas- |     at async file:///opt/vendas-app/nvs-antt2/node_modules/drizzle-orm/node-postgres/session.js:83:22
+22|vendas- |     at async DatabaseStorage.getUserByUsername (file:///opt/vendas-app/nvs-antt2/dist/index.js:528:20)
+22|vendas- |     at async Strategy._verify (file:///opt/vendas-app/nvs-antt2/dist/index.js:3013:22)
+
+22|vendas-app-final  | 2:07:18 AM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=wS1kCgA2UY9x8flFvwcBU (resolved id: /src/main.tsx?v=wS1kCgA2UY9x8flFvwcBU). Does the file exist?
+22|vendas-app-final  | 2:07:19 AM [websocket] WebSocket configurado no caminho /ws
+22|vendas-app-final  | 2:07:19 AM [express] serving on port 5001
