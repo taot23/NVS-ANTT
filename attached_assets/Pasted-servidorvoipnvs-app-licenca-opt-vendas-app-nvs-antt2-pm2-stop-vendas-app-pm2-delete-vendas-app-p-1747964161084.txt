@@ -1,0 +1,47 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ pm2 stop vendas-app
+pm2 delete vendas-app
+pm2 start dist/index.js --name vendas-app
+curl http://localhost:5001
+[PM2] Applying action stopProcessId on app [vendas-app](ids: [ 19 ])
+[PM2] [vendas-app](19) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 16 │ aet-license-system │ cluster  │ 23   │ online    │ 0%       │ 106.6mb  │
+│ 19 │ vendas-app         │ fork     │ 3    │ stopped   │ 0%       │ 0b       │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 47.3mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+[PM2] Applying action deleteProcessId on app [vendas-app](ids: [ 19 ])
+[PM2] [vendas-app](19) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 16 │ aet-license-system │ cluster  │ 23   │ online    │ 0%       │ 106.6mb  │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 47.8mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+[PM2] Starting /opt/vendas-app/nvs-antt2/dist/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 16 │ aet-license-system │ cluster  │ 23   │ online    │ 0%       │ 106.9mb  │
+│ 20 │ vendas-app         │ fork     │ 0    │ online    │ 0%       │ 19.0mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+Module
+┌────┬────────────────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ status   │ cpu      │ mem      │
+├────┼────────────────────┼──────────┼──────────┼──────────┤
+│ 0  │ pm2-logrotate      │ online   │ 0%       │ 47.8mb   │
+└────┴────────────────────┴──────────┴──────────┴──────────┘
+curl: (7) Failed to connect to localhost port 5001 after 0 ms: Couldn't connect to server
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ 

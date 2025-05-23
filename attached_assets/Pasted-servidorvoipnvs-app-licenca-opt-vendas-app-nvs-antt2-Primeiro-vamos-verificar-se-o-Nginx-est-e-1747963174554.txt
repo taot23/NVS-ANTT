@@ -1,0 +1,19 @@
+servidorvoipnvs@app-licenca:/opt/vendas-app/nvs-antt2$ # Primeiro, vamos verificar se o Nginx está escutando na porta 8080
+sudo netstat -tlnp | grep :8080
+
+# Testar se funciona localmente
+curl http://localhost:8080
+
+# Verificar logs do Nginx
+sudo tail -f /var/log/nginx/error.log
+curl: (7) Failed to connect to localhost port 8080 after 0 ms: Couldn't connect to server
+2025/05/23 01:15:47 [error] 439109#439109: *202 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:15:53 [error] 439108#439108: *205 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /assets/index-Cg8iEvXY.css HTTP/1.1", upstream: "http://[::1]:5000/assets/index-Cg8iEvXY.css", host: "34.122.81.103", referrer: "http://34.122.81.103/vendas"
+2025/05/23 01:16:02 [error] 439109#439109: *220 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:16:48 [error] 439136#439136: *233 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:16:50 [error] 439135#439135: *236 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /vendas HTTP/1.1", upstream: "http://[::1]:5000/vendas", host: "34.122.81.103"
+2025/05/23 01:17:09 [error] 439136#439136: *251 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:17:25 [error] 439154#439154: *254 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:17:52 [error] 439153#439153: *257 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:18:05 [error] 439154#439154: *264 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
+2025/05/23 01:18:59 [error] 439154#439154: *276 connect() failed (111: Connection refused) while connecting to upstream, client: 177.220.186.227, server: 34.122.81.103, request: "GET /ws HTTP/1.1", upstream: "http://[::1]:5000/ws", host: "34.122.81.103"
