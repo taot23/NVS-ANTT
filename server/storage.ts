@@ -1624,6 +1624,11 @@ export class DatabaseStorage implements IStorage {
 
       console.log("Resultado da consulta de itens:", result.rows);
       console.log("Primeiro item com service_name:", result.rows[0]);
+      
+      // Verificar se o service_name está presente
+      if (result.rows.length > 0) {
+        console.log("🔍 Verificando service_name:", result.rows[0].service_name);
+      }
 
       if (!result.rows || result.rows.length === 0) {
         return [];
