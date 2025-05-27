@@ -58,11 +58,14 @@ async function comparePasswords(supplied: string, stored: string) {
 export function setupAuth(app: Express) {
   const sessionSettings: session.SessionOptions = {
     secret: process.env.SESSION_SECRET || "supersecretkey",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     store: storage.sessionStore,
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      secure: false, // Para funcionar em ambiente de desenvolvimento
+      httpOnly: true,
+      sameSite: 'lax'
     }
   };
 
