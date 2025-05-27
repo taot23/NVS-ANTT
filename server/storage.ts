@@ -1614,7 +1614,16 @@ export class DatabaseStorage implements IStorage {
       // Usar SQL puro para obter todas as colunas, incluindo o nome do serviço
       const result = await pool.query(
         `SELECT 
-          si.*,
+          si.id,
+          si.sale_id,
+          si.service_id,
+          si.service_type_id,
+          si.quantity,
+          si.price,
+          si.total_price,
+          si.notes,
+          si.status,
+          si.created_at,
           s.name as service_name
          FROM sale_items si
          LEFT JOIN services s ON si.service_id = s.id
