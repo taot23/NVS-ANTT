@@ -1623,6 +1623,7 @@ export class DatabaseStorage implements IStorage {
       );
 
       console.log("Resultado da consulta de itens:", result.rows);
+      console.log("Primeiro item com service_name:", result.rows[0]);
 
       if (!result.rows || result.rows.length === 0) {
         return [];

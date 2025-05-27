@@ -456,7 +456,7 @@ export default function FinanceTransactionDialog({
                   <div className="space-y-4">
                     {saleItems.map((item: any, index: number) => (
                       <div key={item.id || index} className="border rounded-lg p-4 bg-gray-50">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
                             <Label className="text-muted-foreground">Serviço</Label>
                             <p className="font-medium">{item.serviceName || `Serviço #${item.serviceId}`}</p>
@@ -465,19 +465,7 @@ export default function FinanceTransactionDialog({
                             <Label className="text-muted-foreground">Quantidade</Label>
                             <p className="font-medium">{item.quantity || 1}</p>
                           </div>
-                          <div>
-                            <Label className="text-muted-foreground">Valor Unitário</Label>
-                            <p className="font-medium text-primary">{formatCurrency(item.price || 0)}</p>
-                          </div>
                         </div>
-                        {item.totalPrice && (
-                          <div className="mt-2 pt-2 border-t">
-                            <div className="flex justify-between items-center">
-                              <Label className="text-muted-foreground">Total do Item:</Label>
-                              <p className="font-bold text-lg text-primary">{formatCurrency(item.totalPrice)}</p>
-                            </div>
-                          </div>
-                        )}
                       </div>
                     ))}
                     <div className="border-t pt-4 mt-4">
