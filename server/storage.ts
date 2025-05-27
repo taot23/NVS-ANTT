@@ -1611,9 +1611,14 @@ export class DatabaseStorage implements IStorage {
       // Importar o pool do banco de dados diretamente
       const { pool } = await import("./db");
 
-      // Usar SQL puro para obter todas as colunas, incluindo as novas total_price e status
+      // Usar SQL puro para obter todas as colunas, incluindo o nome do serviço
       const result = await pool.query(
-        `SELECT * FROM sale_items WHERE sale_id = $1`,
+        `SELECT 
+          si.*,
+          s.name as service_name
+         FROM sale_items si
+         LEFT JOIN services s ON si.service_id = s.id
+         WHERE si.sale_id = $1`,
         [saleId],
       );
 
@@ -1642,6 +1647,8 @@ export class DatabaseStorage implements IStorage {
           // Usar o status da tabela se existir, senão usar "pending"
           status: row.status || "pending",
           createdAt: row.created_at,
+          // Adicionar o nome do serviço
+          serviceName: row.service_name || `Serviço #${row.service_id}`,
         } as unknown as SaleItem;
       });
     } catch (error) {
