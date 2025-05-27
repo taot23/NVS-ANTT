@@ -1628,6 +1628,7 @@ export class DatabaseStorage implements IStorage {
       // Verificar se o service_name está presente
       if (result.rows.length > 0) {
         console.log("🔍 Verificando service_name:", result.rows[0].service_name);
+        console.log("🔍 Todos os campos do primeiro item:", Object.keys(result.rows[0]));
       }
 
       if (!result.rows || result.rows.length === 0) {
