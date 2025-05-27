@@ -85,6 +85,17 @@ export default function FinanceTransactionDialog({
     },
     enabled: !!sale?.paymentMethodId,
   });
+
+  // Buscar itens da venda
+  const { data: saleItems = [], isLoading: isLoadingItems } = useQuery({
+    queryKey: ['/api/sales', saleId, 'items'],
+    queryFn: async () => {
+      if (!saleId) return [];
+      const res = await apiRequest("GET", `/api/sales/${saleId}/items`);
+      return res.json();
+    },
+    enabled: !!saleId && open,
+  });
   
   // Atualizar status financeiro para "in_progress"
   const startFinancialProcessMutation = useMutation({
@@ -290,10 +301,14 @@ export default function FinanceTransactionDialog({
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-3 mb-4">
+          <TabsList className="grid grid-cols-4 mb-4">
             <TabsTrigger value="overview">
               <FileText className="h-4 w-4 mr-2" />
               Visão Geral
+            </TabsTrigger>
+            <TabsTrigger value="items">
+              <ShoppingBag className="h-4 w-4 mr-2" />
+              Itens da Venda
             </TabsTrigger>
             <TabsTrigger value="payments">
               <CreditCard className="h-4 w-4 mr-2" />
@@ -401,6 +416,83 @@ export default function FinanceTransactionDialog({
                     {sale.status === "returned" && "A venda foi devolvida para revisão."}
                   </span>
                 </div>
+              </CardContent>
+            </Card>
+
+            {/* Observações da Venda */}
+            {sale.notes && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center">
+                    <FileText className="h-5 w-5 mr-2" />
+                    Observações da Venda
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <p className="text-sm whitespace-pre-wrap">{sale.notes}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          {/* Nova aba de Itens da Venda */}
+          <TabsContent value="items" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center">
+                  <ShoppingBag className="h-5 w-5 mr-2" />
+                  Itens da Venda
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {isLoadingItems ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                    <span className="ml-2">Carregando itens...</span>
+                  </div>
+                ) : saleItems.length > 0 ? (
+                  <div className="space-y-4">
+                    {saleItems.map((item: any, index: number) => (
+                      <div key={item.id || index} className="border rounded-lg p-4 bg-gray-50">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div>
+                            <Label className="text-muted-foreground">Serviço</Label>
+                            <p className="font-medium">{item.serviceName || `Serviço #${item.serviceId}`}</p>
+                          </div>
+                          <div>
+                            <Label className="text-muted-foreground">Quantidade</Label>
+                            <p className="font-medium">{item.quantity || 1}</p>
+                          </div>
+                          <div>
+                            <Label className="text-muted-foreground">Valor Unitário</Label>
+                            <p className="font-medium text-primary">{formatCurrency(item.price || 0)}</p>
+                          </div>
+                        </div>
+                        {item.totalPrice && (
+                          <div className="mt-2 pt-2 border-t">
+                            <div className="flex justify-between items-center">
+                              <Label className="text-muted-foreground">Total do Item:</Label>
+                              <p className="font-bold text-lg text-primary">{formatCurrency(item.totalPrice)}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <div className="border-t pt-4 mt-4">
+                      <div className="flex justify-between items-center">
+                        <Label className="text-lg font-medium">Total da Venda:</Label>
+                        <p className="text-xl font-bold text-primary">{formatCurrency(sale.totalAmount)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <ShoppingBag className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>Nenhum item encontrado para esta venda.</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
