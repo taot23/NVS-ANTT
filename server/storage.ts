@@ -1655,7 +1655,7 @@ export class DatabaseStorage implements IStorage {
           createdAt: row.created_at,
           // Adicionar o nome do serviço
           serviceName: row.service_name || `Serviço #${row.service_id}`,
-        } as unknown as SaleItem;
+        };
       });
     } catch (error) {
       console.error("Erro ao buscar itens da venda:", error);

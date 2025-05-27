@@ -195,7 +195,9 @@ export type ServiceProvider = typeof serviceProviders.$inferSelect;
 export type InsertSale = z.infer<typeof insertSaleSchema>;
 export type Sale = typeof sales.$inferSelect;
 export type InsertSaleItem = z.infer<typeof insertSaleItemSchema>;
-export type SaleItem = typeof saleItems.$inferSelect;
+export type SaleItem = typeof saleItems.$inferSelect & {
+  serviceName?: string; // Nome do serviço (obtido via JOIN)
+};
 // Tabela de parcelas da venda
 export const saleInstallments = pgTable("sale_installments", {
   id: serial("id").primaryKey(),
