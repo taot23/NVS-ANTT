@@ -1607,31 +1607,41 @@ export class DatabaseStorage implements IStorage {
 
   // Implementação dos métodos de itens da venda
   async getSaleItems(saleId: number): Promise<SaleItem[]> {
+    console.log(`🔧 NOVA IMPLEMENTAÇÃO: Buscando itens da venda ${saleId}`);
     try {
-      // Buscar itens da venda
-      const items = await db.select().from(saleItems).where(eq(saleItems.saleId, saleId));
+      // Usar SQL direto com JOIN para pegar nomes dos serviços
+      const { pool } = await import("./db");
       
-      if (!items || items.length === 0) {
-        return [];
-      }
+      const result = await pool.query(`
+        SELECT 
+          si.id, si.sale_id, si.service_id, si.service_type_id, 
+          si.quantity, si.price, si.total_price, si.notes, 
+          si.status, si.created_at,
+          COALESCE(s.name, 'Serviço Desconhecido') as service_name
+        FROM sale_items si
+        LEFT JOIN services s ON si.service_id = s.id
+        WHERE si.sale_id = $1
+        ORDER BY si.id
+      `, [saleId]);
 
-      // Buscar todos os serviços de uma vez
-      const { services } = await import("@shared/schema");
-      const servicesData = await db.select().from(services);
-      const serviceMap = new Map(servicesData.map(service => [service.id, service.name]));
+      console.log(`🔧 Itens encontrados com nomes: ${JSON.stringify(result.rows, null, 2)}`);
 
-      // Mapeia os resultados incluindo o nome do serviço
-      return items.map((item) => {
-        const serviceName = serviceMap.get(item.serviceId) || `Serviço #${item.serviceId}`;
-        
-        return {
-          ...item,
-          serviceName,
-        };
-      });
+      return result.rows.map((row: any) => ({
+        id: row.id,
+        saleId: row.sale_id,
+        serviceId: row.service_id,
+        serviceTypeId: row.service_type_id,
+        quantity: row.quantity,
+        price: row.price,
+        totalPrice: row.total_price,
+        notes: row.notes,
+        status: row.status,
+        createdAt: row.created_at,
+        serviceName: row.service_name,
+      }));
     } catch (error) {
-      console.error("Erro ao buscar itens da venda:", error);
-      return []; // Retorna lista vazia em caso de erro para não interromper a execução
+      console.error("🔧 Erro ao buscar itens da venda:", error);
+      return [];
     }
   }
 
