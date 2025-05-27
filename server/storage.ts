@@ -1608,63 +1608,25 @@ export class DatabaseStorage implements IStorage {
   // Implementação dos métodos de itens da venda
   async getSaleItems(saleId: number): Promise<SaleItem[]> {
     try {
-      // Importar o pool do banco de dados diretamente
-      const { pool } = await import("./db");
-
-      // Usar SQL puro para obter todas as colunas, incluindo o nome do serviço
-      const result = await pool.query(
-        `SELECT 
-          si.id,
-          si.sale_id,
-          si.service_id,
-          si.service_type_id,
-          si.quantity,
-          si.price,
-          si.total_price,
-          si.notes,
-          si.status,
-          si.created_at,
-          s.name as service_name
-         FROM sale_items si
-         LEFT JOIN services s ON si.service_id = s.id
-         WHERE si.sale_id = $1`,
-        [saleId],
-      );
-
-      console.log("Resultado da consulta de itens:", result.rows);
-      console.log("Primeiro item completo:", JSON.stringify(result.rows[0], null, 2));
+      // Buscar itens da venda
+      const items = await db.select().from(saleItems).where(eq(saleItems.saleId, saleId));
       
-      // Verificar se o service_name está presente
-      if (result.rows.length > 0) {
-        console.log("🔍 Verificando service_name:", result.rows[0].service_name);
-        console.log("🔍 Todos os campos do primeiro item:", Object.keys(result.rows[0]));
-      }
-
-      if (!result.rows || result.rows.length === 0) {
+      if (!items || items.length === 0) {
         return [];
       }
 
-      // Mapeia os resultados para o tipo esperado
-      return result.rows.map((row) => {
-        // Calcular o preço total para cada item se não existir na tabela
-        const itemPrice = Number(row.price) || 0;
-        const itemQuantity = Number(row.quantity) || 1;
+      // Buscar todos os serviços de uma vez
+      const { services } = await import("@shared/schema");
+      const servicesData = await db.select().from(services);
+      const serviceMap = new Map(servicesData.map(service => [service.id, service.name]));
 
+      // Mapeia os resultados incluindo o nome do serviço
+      return items.map((item) => {
+        const serviceName = serviceMap.get(item.serviceId) || `Serviço #${item.serviceId}`;
+        
         return {
-          id: row.id,
-          saleId: row.sale_id,
-          serviceId: row.service_id,
-          serviceTypeId: row.service_type_id,
-          quantity: row.quantity,
-          price: row.price,
-          // Usar o total_price da tabela se existir, senão calcular
-          totalPrice: row.total_price || (itemPrice * itemQuantity).toString(),
-          notes: row.notes || null,
-          // Usar o status da tabela se existir, senão usar "pending"
-          status: row.status || "pending",
-          createdAt: row.created_at,
-          // Adicionar o nome do serviço
-          serviceName: row.service_name || `Serviço #${row.service_id}`,
+          ...item,
+          serviceName,
         };
       });
     } catch (error) {
