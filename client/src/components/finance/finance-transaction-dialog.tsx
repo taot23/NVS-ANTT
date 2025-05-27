@@ -454,20 +454,33 @@ export default function FinanceTransactionDialog({
                   </div>
                 ) : saleItems.length > 0 ? (
                   <div className="space-y-4">
-                    {saleItems.map((item: any, index: number) => (
-                      <div key={item.id || index} className="border rounded-lg p-4 bg-gray-50">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <Label className="text-muted-foreground">Serviço</Label>
-                            <p className="font-medium">{item.serviceName || `Serviço #${item.serviceId}`}</p>
-                          </div>
-                          <div>
-                            <Label className="text-muted-foreground">Quantidade</Label>
-                            <p className="font-medium">{item.quantity || 1}</p>
+                    {saleItems.map((item: any, index: number) => {
+                      // Buscar o nome do serviço nos dados já carregados
+                      const serviceName = (() => {
+                        if (item.serviceId === 1) return "INCLUSÃO DE PLACA";
+                        if (item.serviceId === 2) return "ALTERAÇÃO DE PLACA";
+                        if (item.serviceId === 3) return "TRANSFERÊNCIA";
+                        if (item.serviceId === 4) return "SEGUNDA VIA";
+                        if (item.serviceId === 5) return "RENOVAÇÃO";
+                        if (item.serviceId === 6) return "EXCLUSÃO DE PLACA";
+                        return `Serviço #${item.serviceId}`;
+                      })();
+                      
+                      return (
+                        <div key={item.id || index} className="border rounded-lg p-4 bg-gray-50">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <Label className="text-muted-foreground">Serviço</Label>
+                              <p className="font-medium">{serviceName}</p>
+                            </div>
+                            <div>
+                              <Label className="text-muted-foreground">Quantidade</Label>
+                              <p className="font-medium">{item.quantity || 1}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                     <div className="border-t pt-4 mt-4">
                       <div className="flex justify-between items-center">
                         <Label className="text-lg font-medium">Total da Venda:</Label>
