@@ -123,11 +123,14 @@ const customerFormSchema = insertCustomerSchema.extend({
     }),
   contactName: z.string().optional(),
   phone: z.string()
-    .regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone deve estar no formato (00) 00000-0000")
+    .refine((val) => {
+      // Aceitar tanto formato de celular (9 dígitos) quanto fixo (8 dígitos)
+      return /^\(\d{2}\) \d{4,5}-\d{4}$/.test(val);
+    }, "Telefone deve estar no formato (00) 0000-0000 ou (00) 00000-0000")
     .superRefine((val, ctx) => {
       const cleanPhone = val.replace(/\D/g, '');
       
-      // Verificar se o DDD é válido (11-99)
+      // Verificar se o DDD é válido
       const ddd = parseInt(cleanPhone.substring(0, 2));
       const validDDDs = [
         11, 12, 13, 14, 15, 16, 17, 18, 19, // SP
@@ -177,8 +180,10 @@ const customerFormSchema = insertCustomerSchema.extend({
         return false;
       }
       
-      // Verificar se o primeiro dígito do número é válido (9 para celular, 2-5 para fixo)
+      // Verificar se o primeiro dígito do número é válido
       const firstDigit = parseInt(phoneNumber.charAt(0));
+      
+      // Para celulares (9 dígitos), deve começar com 9
       if (phoneNumber.length === 9 && firstDigit !== 9) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -187,6 +192,7 @@ const customerFormSchema = insertCustomerSchema.extend({
         return false;
       }
       
+      // Para telefones fixos (8 dígitos), deve começar com 2, 3, 4 ou 5
       if (phoneNumber.length === 8 && (firstDigit < 2 || firstDigit > 5)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -201,14 +207,15 @@ const customerFormSchema = insertCustomerSchema.extend({
     .optional()
     .refine((val) => {
       if (!val || val === "") return true;
-      return /^\(\d{2}\) \d{5}-\d{4}$/.test(val);
-    }, "Telefone secundário deve estar no formato (00) 00000-0000")
+      // Aceitar tanto formato de celular (9 dígitos) quanto fixo (8 dígitos)
+      return /^\(\d{2}\) \d{4,5}-\d{4}$/.test(val);
+    }, "Telefone secundário deve estar no formato (00) 0000-0000 ou (00) 00000-0000")
     .superRefine((val, ctx) => {
       if (!val || val === "") return true;
       
       const cleanPhone = val.replace(/\D/g, '');
       
-      // Verificar se o DDD é válido (mesmo array de DDDs válidos)
+      // Verificar se o DDD é válido
       const ddd = parseInt(cleanPhone.substring(0, 2));
       const validDDDs = [
         11, 12, 13, 14, 15, 16, 17, 18, 19, // SP
@@ -260,6 +267,8 @@ const customerFormSchema = insertCustomerSchema.extend({
       
       // Verificar se o primeiro dígito do número é válido
       const firstDigit = parseInt(phoneNumber.charAt(0));
+      
+      // Para celulares (9 dígitos), deve começar com 9
       if (phoneNumber.length === 9 && firstDigit !== 9) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -268,6 +277,7 @@ const customerFormSchema = insertCustomerSchema.extend({
         return false;
       }
       
+      // Para telefones fixos (8 dígitos), deve começar com 2, 3, 4 ou 5
       if (phoneNumber.length === 8 && (firstDigit < 2 || firstDigit > 5)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -587,11 +597,18 @@ export default function CustomerDialog({
     // Remove tudo que não é número
     const numbers = value.replace(/\D/g, "");
     
-    // Aplica a máscara: (00) 00000-0000
-    return numbers
-      .replace(/(\d{2})(\d)/, "($1) $2")
-      .replace(/(\d{5})(\d)/, "$1-$2")
-      .replace(/(-\d{4})\d+?$/, "$1");
+    // Aplica máscara flexível para telefone fixo (8 dígitos) ou celular (9 dígitos)
+    if (numbers.length <= 2) {
+      return numbers.length ? `(${numbers}` : '';
+    } else if (numbers.length <= 6) {
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    } else if (numbers.length <= 10) {
+      // Telefone fixo: (00) 0000-0000
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    } else {
+      // Celular: (00) 00000-0000
+      return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+    }
   };
 
   // Verifica se o documento é válido para mostrar ícone verde
