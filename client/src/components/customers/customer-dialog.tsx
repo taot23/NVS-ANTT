@@ -122,8 +122,162 @@ const customerFormSchema = insertCustomerSchema.extend({
       return true;
     }),
   contactName: z.string().optional(),
-  phone: z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone deve estar no formato (00) 00000-0000"),
-  phone2: z.string().optional(),
+  phone: z.string()
+    .regex(/^\(\d{2}\) \d{5}-\d{4}$/, "Telefone deve estar no formato (00) 00000-0000")
+    .superRefine((val, ctx) => {
+      const cleanPhone = val.replace(/\D/g, '');
+      
+      // Verificar se o DDD é válido (11-99)
+      const ddd = parseInt(cleanPhone.substring(0, 2));
+      const validDDDs = [
+        11, 12, 13, 14, 15, 16, 17, 18, 19, // SP
+        21, 22, 24, // RJ/ES
+        27, 28, // ES
+        31, 32, 33, 34, 35, 37, 38, // MG
+        41, 42, 43, 44, 45, 46, // PR
+        47, 48, 49, // SC
+        51, 53, 54, 55, // RS
+        61, // DF/GO
+        62, 64, // GO
+        63, // TO
+        65, 66, // MT
+        67, // MS
+        68, // AC
+        69, // RO
+        71, 73, 74, 75, 77, // BA
+        79, // SE
+        81, 87, // PE
+        82, // AL
+        83, // PB
+        84, // RN
+        85, 88, // CE
+        86, 89, // PI
+        91, 93, 94, // PA
+        92, 97, // AM
+        95, // RR
+        96, // AP
+        98, 99, // MA
+      ];
+      
+      if (!validDDDs.includes(ddd)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "DDD inválido. Verifique o código da sua região"
+        });
+        return false;
+      }
+      
+      // Verificar se não são todos os números iguais
+      const phoneNumber = cleanPhone.substring(2);
+      if (/^(\d)\1+$/.test(phoneNumber)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de telefone inválido (dígitos repetidos)"
+        });
+        return false;
+      }
+      
+      // Verificar se o primeiro dígito do número é válido (9 para celular, 2-5 para fixo)
+      const firstDigit = parseInt(phoneNumber.charAt(0));
+      if (phoneNumber.length === 9 && firstDigit !== 9) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de celular deve começar com 9"
+        });
+        return false;
+      }
+      
+      if (phoneNumber.length === 8 && (firstDigit < 2 || firstDigit > 5)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de telefone fixo deve começar com 2, 3, 4 ou 5"
+        });
+        return false;
+      }
+      
+      return true;
+    }),
+  phone2: z.string()
+    .optional()
+    .refine((val) => {
+      if (!val || val === "") return true;
+      return /^\(\d{2}\) \d{5}-\d{4}$/.test(val);
+    }, "Telefone secundário deve estar no formato (00) 00000-0000")
+    .superRefine((val, ctx) => {
+      if (!val || val === "") return true;
+      
+      const cleanPhone = val.replace(/\D/g, '');
+      
+      // Verificar se o DDD é válido (mesmo array de DDDs válidos)
+      const ddd = parseInt(cleanPhone.substring(0, 2));
+      const validDDDs = [
+        11, 12, 13, 14, 15, 16, 17, 18, 19, // SP
+        21, 22, 24, // RJ/ES
+        27, 28, // ES
+        31, 32, 33, 34, 35, 37, 38, // MG
+        41, 42, 43, 44, 45, 46, // PR
+        47, 48, 49, // SC
+        51, 53, 54, 55, // RS
+        61, // DF/GO
+        62, 64, // GO
+        63, // TO
+        65, 66, // MT
+        67, // MS
+        68, // AC
+        69, // RO
+        71, 73, 74, 75, 77, // BA
+        79, // SE
+        81, 87, // PE
+        82, // AL
+        83, // PB
+        84, // RN
+        85, 88, // CE
+        86, 89, // PI
+        91, 93, 94, // PA
+        92, 97, // AM
+        95, // RR
+        96, // AP
+        98, 99, // MA
+      ];
+      
+      if (!validDDDs.includes(ddd)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "DDD inválido no telefone secundário"
+        });
+        return false;
+      }
+      
+      // Verificar se não são todos os números iguais
+      const phoneNumber = cleanPhone.substring(2);
+      if (/^(\d)\1+$/.test(phoneNumber)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de telefone secundário inválido (dígitos repetidos)"
+        });
+        return false;
+      }
+      
+      // Verificar se o primeiro dígito do número é válido
+      const firstDigit = parseInt(phoneNumber.charAt(0));
+      if (phoneNumber.length === 9 && firstDigit !== 9) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de celular secundário deve começar com 9"
+        });
+        return false;
+      }
+      
+      if (phoneNumber.length === 8 && (firstDigit < 2 || firstDigit > 5)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Número de telefone fixo secundário deve começar com 2, 3, 4 ou 5"
+        });
+        return false;
+      }
+      
+      return true;
+    }),
   email: z.string().email("E-mail inválido").optional().or(z.literal('')),
 });
 
