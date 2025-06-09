@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { setupAuth } from "./auth";
 import { storage } from "./storage";
 import { setupWebsocket, notifySalesUpdate, broadcastEvent } from "./websocket";
+import { cacheManager } from "./cache-manager";
 import { registerCustomRoutes } from "./routes-custom";
 import { 
   insertCustomerSchema, 
@@ -5137,6 +5138,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Erro ao buscar atividades recentes:", error);
       res.status(500).json({ error: "Erro ao buscar atividades recentes" });
     }
+  });
+
+  // Rotas de monitoramento e controle do cache
+  app.get("/api/system/cache/stats", isAuthenticated, (req, res) => {
+    if (req.user?.role !== 'admin') {
+      return res.status(403).json({ error: "Acesso negado. Apenas administradores podem visualizar estatísticas do cache." });
+    }
+    
+    const stats = cacheManager.getStats();
+    res.json(stats);
+  });
+
+  app.post("/api/system/cache/clear", isAuthenticated, (req, res) => {
+    if (req.user?.role !== 'admin') {
+      return res.status(403).json({ error: "Acesso negado. Apenas administradores podem limpar o cache." });
+    }
+    
+    cacheManager.clearAll();
+    res.json({ message: "Cache limpo com sucesso" });
+  });
+
+  app.post("/api/system/cache/cleanup", isAuthenticated, (req, res) => {
+    if (req.user?.role !== 'admin') {
+      return res.status(403).json({ error: "Acesso negado. Apenas administradores podem executar limpeza do cache." });
+    }
+    
+    cacheManager.performFullCleanup();
+    res.json({ message: "Limpeza de cache executada com sucesso" });
+  });
+
+  // Rota para obter informações de memória do sistema
+  app.get("/api/system/memory", isAuthenticated, (req, res) => {
+    if (req.user?.role !== 'admin') {
+      return res.status(403).json({ error: "Acesso negado. Apenas administradores podem visualizar informações de memória." });
+    }
+    
+    const memoryUsage = process.memoryUsage();
+    const formatBytes = (bytes: number) => (bytes / 1024 / 1024).toFixed(2) + ' MB';
+    
+    res.json({
+      rss: formatBytes(memoryUsage.rss),
+      heapTotal: formatBytes(memoryUsage.heapTotal),
+      heapUsed: formatBytes(memoryUsage.heapUsed),
+      external: formatBytes(memoryUsage.external),
+      uptime: Math.floor(process.uptime()),
+      nodeVersion: process.version
+    });
   });
 
   // Registrar rotas personalizadas para manipulação de datas exatas
