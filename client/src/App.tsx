@@ -15,6 +15,7 @@ import SalesPage from "@/pages/sales-page";
 import FinancePage from "@/pages/finance-page-updated";
 import CostTypesPage from "@/pages/cost-types-page";
 import ReportsPage from "@/pages/reports-page";
+import SystemAdminPage from "@/pages/system-admin-page";
 import { ProtectedRoute } from "./lib/protected-route";
 import { AuthProvider } from "./hooks/use-auth";
 import { AppLayout } from "@/components/layout/app-layout";
@@ -125,6 +126,15 @@ const ProtectedReports = () => {
   );
 };
 
+const ProtectedSystemAdmin = () => {
+  console.log("Renderizando ProtectedSystemAdmin");
+  return (
+    <ProtectedApp>
+      <SystemAdminPage />
+    </ProtectedApp>
+  );
+};
+
 function Router() {
   console.log("Renderizando Router");
   return (
@@ -141,6 +151,7 @@ function Router() {
       <ProtectedRoute path="/finance" component={ProtectedFinance} />
       <ProtectedRoute path="/cost-types" component={ProtectedCostTypes} />
       <ProtectedRoute path="/reports" component={ProtectedReports} />
+      <ProtectedRoute path="/system-admin" component={ProtectedSystemAdmin} />
       <Route component={NotFound} />
     </Switch>
   );

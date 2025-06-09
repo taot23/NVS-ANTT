@@ -21,7 +21,8 @@ import {
   HardHat,
   ShoppingCart,
   DollarSign,
-  BarChart
+  BarChart,
+  Server
 } from 'lucide-react';
 
 // Interface para os itens do menu
@@ -150,6 +151,12 @@ export function Sidebar() {
       icon: <UserCog className="h-5 w-5" />,
       label: 'Usuários',
       roles: ['admin', 'supervisor'] // Apenas admin e supervisor
+    },
+    {
+      path: '/system-admin',
+      icon: <Server className="h-5 w-5" />,
+      label: 'Administração do Sistema',
+      roles: ['admin'] // Apenas admin
     }
   ];
   
