@@ -408,11 +408,25 @@ export default function SaleOperationDialog({
       });
       
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || error.message || "Erro ao devolver a venda");
+        try {
+          const error = await response.json();
+          throw new Error(error.error || error.message || "Erro ao devolver a venda");
+        } catch (parseError) {
+          const errorText = await response.text();
+          console.error("Erro ao fazer parse da resposta de erro:", parseError);
+          console.error("Texto da resposta:", errorText);
+          throw new Error(`Erro HTTP ${response.status}: ${errorText.substring(0, 100)}`);
+        }
       }
       
-      return await response.json();
+      try {
+        return await response.json();
+      } catch (parseError) {
+        const responseText = await response.text();
+        console.error("Erro ao fazer parse da resposta de sucesso:", parseError);
+        console.error("Texto da resposta:", responseText);
+        throw new Error("Resposta inválida do servidor: " + responseText.substring(0, 100));
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/sales"] });
