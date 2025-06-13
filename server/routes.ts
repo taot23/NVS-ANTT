@@ -5140,6 +5140,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Rota para devolver venda ao vendedor (compatibilidade)
+  app.post("/api/sales/:id/return-to-seller", canManageSaleOperations, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+      }
+      
+      const { returnReason } = req.body;
+      if (!returnReason || returnReason.trim() === '') {
+        return res.status(400).json({ error: "É necessário informar o motivo da devolução" });
+      }
+      
+      const sale = await storage.getSale(id);
+      if (!sale) {
+        return res.status(404).json({ error: "Venda não encontrada" });
+      }
+      
+      // Verificar se a venda está no status correto para ser devolvida
+      if (sale.status !== "pending" && sale.status !== "in_progress" && sale.status !== "corrected") {
+        return res.status(400).json({ 
+          error: "Não é possível devolver a venda", 
+          message: "Só é possível devolver vendas que estão pendentes, em andamento ou corrigidas aguardando operacional."
+        });
+      }
+      
+      // Devolver a venda
+      const updatedSale = await storage.returnSaleToSeller(id, req.user!.id, returnReason);
+      if (!updatedSale) {
+        return res.status(404).json({ error: "Venda não encontrada" });
+      }
+      
+      // Notificar todos os clientes sobre a atualização da venda
+      notifySalesUpdate();
+      
+      res.json(updatedSale);
+    } catch (error) {
+      console.error("Erro ao devolver venda:", error);
+      res.status(500).json({ error: "Erro ao devolver venda" });
+    }
+  });
+
   // Rotas de monitoramento e controle do cache
   app.get("/api/system/cache/stats", isAuthenticated, (req, res) => {
     if (req.user?.role !== 'admin') {
