@@ -11,10 +11,10 @@ COPY . .
 
 # Variáveis de ambiente para produção
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=5050
 
 # Expor a porta que o app vai usar
-EXPOSE 8080
+EXPOSE 5050
 
 # Comando para iniciar o app
 CMD ["npm", "run", "start"]
