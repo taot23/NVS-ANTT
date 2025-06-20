@@ -1,0 +1,109 @@
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 logs antt --lines 50
+[TAILING] Tailing last 50 lines for [antt] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/antt-error.log last 50 lines:
+14|antt    |   code: 'EADDRINUSE',
+14|antt    |   errno: -98,
+14|antt    |   syscall: 'listen',
+14|antt    |   address: '0.0.0.0',
+14|antt    |   port: 5050
+14|antt    | }
+14|antt    | 
+14|antt    | Node.js v20.19.2
+14|antt    | node:events:502
+14|antt    |       throw er; // Unhandled 'error' event
+14|antt    |       ^
+14|antt    | 
+14|antt    | Error: listen EADDRINUSE: address already in use 0.0.0.0:5050
+14|antt    |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+14|antt    |     at listenInCluster (node:net:1965:12)
+14|antt    |     at doListen (node:net:2139:7)
+14|antt    |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+14|antt    | Emitted 'error' event on WebSocketServer instance at:
+14|antt    |     at Server.emit (node:events:524:28)
+14|antt    |     at emitErrorNT (node:net:1944:8)
+14|antt    |     at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+14|antt    |   code: 'EADDRINUSE',
+14|antt    |   errno: -98,
+14|antt    |   syscall: 'listen',
+14|antt    |   address: '0.0.0.0',
+14|antt    |   port: 5050
+14|antt    | }
+14|antt    | 
+14|antt    | Node.js v20.19.2
+14|antt    | node:events:502
+14|antt    |       throw er; // Unhandled 'error' event
+14|antt    |       ^
+14|antt    | 
+14|antt    | Error: listen EADDRINUSE: address already in use 0.0.0.0:5050
+14|antt    |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+14|antt    |     at listenInCluster (node:net:1965:12)
+14|antt    |     at doListen (node:net:2139:7)
+14|antt    |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+14|antt    | Emitted 'error' event on WebSocketServer instance at:
+14|antt    |     at Server.emit (node:events:524:28)
+14|antt    |     at emitErrorNT (node:net:1944:8)
+14|antt    |     at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+14|antt    |   code: 'EADDRINUSE',
+14|antt    |   errno: -98,
+14|antt    |   syscall: 'listen',
+14|antt    |   address: '0.0.0.0',
+14|antt    |   port: 5050
+14|antt    | }
+14|antt    | 
+14|antt    | Node.js v20.19.2
+
+/home/servidorvoipnvs/.pm2/logs/antt-out.log last 50 lines:
+14|antt    | 2:25:43 PM [express] 🧹 Cache Manager: Parado
+14|antt    |  INFO  Accepting connections at http://localhost:5050
+14|antt    | 
+14|antt    |  INFO  Gracefully shutting down. Please wait...
+14|antt    | 2:34:11 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:34:11 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 2:34:11 PM [express] serving on port 5050
+14|antt    | 2:34:35 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:34:35 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 2:34:35 PM [express] serving on port 5050
+14|antt    | 2:35:48 PM [express] 🧹 Cache Manager: Parado
+14|antt    | 
+14|antt    | > rest-express@1.0.0 start
+14|antt    | > NODE_ENV=production node dist/index.js
+14|antt    | 
+14|antt    | 2:35:55 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:35:55 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 2:35:55 PM [express] serving on port 5050
+14|antt    | 
+14|antt    | > rest-express@1.0.0 dev
+14|antt    | > NODE_ENV=development tsx server/index.ts
+14|antt    | 
+14|antt    | 2:36:02 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:36:02 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 
+14|antt    | > rest-express@1.0.0 dev
+14|antt    | > NODE_ENV=development tsx server/index.ts
+14|antt    | 
+14|antt    | 2:36:06 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:36:06 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 
+14|antt    | > rest-express@1.0.0 dev
+14|antt    | > NODE_ENV=development tsx server/index.ts
+14|antt    | 
+14|antt    | 2:36:09 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:36:09 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 
+14|antt    | > rest-express@1.0.0 dev
+14|antt    | > NODE_ENV=development tsx server/index.ts
+14|antt    | 
+14|antt    | 2:36:13 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:36:13 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 2:36:14 PM [express] 🧹 Cache Manager: Parado
+14|antt    | 
+14|antt    | > rest-express@1.0.0 start
+14|antt    | > NODE_ENV=production node dist/index.js
+14|antt    | 
+14|antt    | 2:36:49 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+14|antt    | 2:36:49 PM [websocket] WebSocket configurado no caminho /ws
+14|antt    | 2:36:49 PM [express] serving on port 5050
+
+^C
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ 

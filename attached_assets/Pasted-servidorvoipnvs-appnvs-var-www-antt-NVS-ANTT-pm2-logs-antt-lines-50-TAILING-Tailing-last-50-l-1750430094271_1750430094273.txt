@@ -1,0 +1,108 @@
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 logs antt --lines 50
+[TAILING] Tailing last 50 lines for [antt] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/antt-error.log last 50 lines:
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+11|antt    | /usr/bin/bash: line 1: /usr/local/bin/serve: No such file or directory
+
+/home/servidorvoipnvs/.pm2/logs/antt-out.log last 50 lines:
+11|antt    | 2:13:47 PM [express] serving on port 5050
+11|antt    | 2:13:48 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:48 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:48 PM [express] serving on port 5050
+11|antt    | 2:13:49 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:49 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:49 PM [express] serving on port 5050
+11|antt    | 2:13:50 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:50 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:51 PM [express] serving on port 5050
+11|antt    | 2:13:52 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:52 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:52 PM [express] serving on port 5050
+11|antt    | 2:13:53 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:53 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:53 PM [express] serving on port 5050
+11|antt    | 2:13:56 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:56 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:56 PM [express] serving on port 5050
+11|antt    | 2:13:58 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:13:58 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:13:58 PM [express] serving on port 5050
+11|antt    | 2:14:00 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:14:00 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:14:00 PM [express] serving on port 5050
+11|antt    | 2:14:02 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:14:02 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:14:03 PM [express] serving on port 5050
+11|antt    | 2:14:05 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:14:05 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:14:05 PM [express] serving on port 5050
+11|antt    | 2:21:20 PM [express] 🧹 Cache Manager: Parado
+11|antt    | 2:21:23 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:21:23 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:21:23 PM [express] serving on port 5050
+11|antt    | 2:22:33 PM [express] 🧹 Cache Manager: Parado
+11|antt    | 2:22:42 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:22:42 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:22:42 PM [express] serving on port 5050
+11|antt    | 2:23:23 PM [express] 🧹 Cache Manager: Parado
+11|antt    | 2:24:53 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:24:53 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:24:53 PM [express] serving on port 5050
+11|antt    | 2:25:43 PM [express] 🧹 Cache Manager: Parado
+11|antt    |  INFO  Accepting connections at http://localhost:5050
+11|antt    | 
+11|antt    |  INFO  Gracefully shutting down. Please wait...
+11|antt    | 2:34:11 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+11|antt    | 2:34:11 PM [websocket] WebSocket configurado no caminho /ws
+11|antt    | 2:34:11 PM [express] serving on port 5050
+
+^C
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ 
