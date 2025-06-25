@@ -1,0 +1,94 @@
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ aet-license-system │ fork     │ 0    │ online    │ 0%       │ 62.1mb   │
+│ 1  │ antt               │ fork     │ 0    │ online    │ 0%       │ 22.4mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[TAILING] Tailing last 20 lines for [antt] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/antt-error.log last 20 lines:
+1|antt     |     at async logDebug (/var/www/antt/NVS-ANTT/server/db.ts:17:5)
+1|antt     |     at async <anonymous> (/var/www/antt/NVS-ANTT/server/routes.ts:2843:7) {
+1|antt     |   length: 109,
+1|antt     |   severity: 'ERROR',
+1|antt     |   code: '42P01',
+1|antt     |   detail: undefined,
+1|antt     |   hint: undefined,
+1|antt     |   position: '13',
+1|antt     |   internalPosition: undefined,
+1|antt     |   internalQuery: undefined,
+1|antt     |   where: undefined,
+1|antt     |   schema: undefined,
+1|antt     |   table: undefined,
+1|antt     |   column: undefined,
+1|antt     |   dataType: undefined,
+1|antt     |   constraint: undefined,
+1|antt     |   file: 'parse_relation.c',
+1|antt     |   line: '1449',
+1|antt     |   routine: 'parserOpenTable'
+1|antt     | }
+
+/home/servidorvoipnvs/.pm2/logs/antt-out.log last 20 lines:
+1|antt     | Consulta SQL de vendas com join para usuário/vendedor
+1|antt     | PARÂMETROS DE CONSULTA: {
+1|antt     |   page: 1,
+1|antt     |   limit: 15,
+1|antt     |   status: undefined,
+1|antt     |   financialStatus: undefined,
+1|antt     |   searchTerm: undefined,
+1|antt     |   startDate: undefined,
+1|antt     |   endDate: undefined,
+1|antt     |   sellerId: 14,
+1|antt     |   sortField: 'date',
+1|antt     |   sortDirection: 'desc'
+1|antt     | }
+1|antt     | Retornando 15 vendas de um total de 116
+1|antt     | 12:34:06 AM [express] GET /api/sales 200 in 201ms :: {"data":[{"id":1261,"orderNumber":"881010435","c…
+1|antt     | 12:34:06 AM [express] GET /api/payment-methods 304 in 1211ms :: [{"id":1,"name":"CARTAO","description…
+1|antt     | 12:34:07 AM [express] GET /api/user 200 in 2235ms :: {"id":14,"username":"luana","role":"vendedor"}
+1|antt     | 12:34:07 AM [express] GET /api/users 304 in 2282ms :: [{"id":2,"username":"vendedor","role":"vendedor…
+1|antt     | 12:34:07 AM [express] GET /api/service-types 304 in 2266ms :: [{"id":1,"name":"SINDICATO","descriptio…
+1|antt     | 12:42:00 AM [express] 🧹 Cache Manager: Parado
+
+1|antt  | [UPLOAD] ✅ Usando diretório: /home/servidorvoipnvs/uploads
+1|antt  | [UPLOAD] 📁 Subdiretórios criados: vehicles, transporters, boletos
+1|antt  | [UPLOAD] Servindo arquivos de /home/servidorvoipnvs/uploads em /uploads
+1|antt  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+1|antt  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|antt  |     at listenInCluster (node:net:1965:12)
+1|antt  |     at doListen (node:net:2139:7)
+1|antt  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|antt  |   code: 'EADDRINUSE',
+1|antt  |   errno: -98,
+1|antt  |   syscall: 'listen',
+1|antt  |   address: '0.0.0.0',
+1|antt  |   port: 5000
+1|antt  | }
+1|antt  | [UPLOAD] ✅ Usando diretório: /home/servidorvoipnvs/uploads
+1|antt  | [UPLOAD] 📁 Subdiretórios criados: vehicles, transporters, boletos
+1|antt  | [UPLOAD] Servindo arquivos de /home/servidorvoipnvs/uploads em /uploads
+1|antt  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+1|antt  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|antt  |     at listenInCluster (node:net:1965:12)
+1|antt  |     at doListen (node:net:2139:7)
+1|antt  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|antt  |   code: 'EADDRINUSE',
+1|antt  |   errno: -98,
+1|antt  |   syscall: 'listen',
+1|antt  |   address: '0.0.0.0',
+1|antt  |   port: 5000
+1|antt  | }
+1|antt  | [UPLOAD] ✅ Usando diretório: /home/servidorvoipnvs/uploads
+1|antt  | [UPLOAD] 📁 Subdiretórios criados: vehicles, transporters, boletos
+1|antt  | [UPLOAD] Servindo arquivos de /home/servidorvoipnvs/uploads em /uploads
+1|antt  | Error: listen EADDRINUSE: address already in use 0.0.0.0:5000
+1|antt  |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+1|antt  |     at listenInCluster (node:net:1965:12)
+1|antt  |     at doListen (node:net:2139:7)
+1|antt  |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+1|antt  |   code: 'EADDRINUSE',
+1|antt  |   errno: -98,
+1|antt  |   syscall: 'listen',
+1|antt  |   address: '0.0.0.0',
+1|antt  |   port: 5000
+1|antt  | }
+^C

@@ -1,0 +1,55 @@
+For more details see kill(1).
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ sudo fuser -k 5050/tcp
+5050/tcp:            3013053
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ sudo lsof -ti:5050 | xargs kill -9
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 delete all
+[PM2] Applying action deleteProcessId on app [all](ids: [ 0 ])
+[PM2] [antt](0) ✓
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 start npm --name "antt" -- run dev -- --host 0.0.0.0 --port 5050
+pm2 save
+[PM2] Starting /usr/bin/npm in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ antt               │ fork     │ 0    │ online    │ 0%       │ 16.4mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /home/servidorvoipnvs/.pm2/dump.pm2
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 status
+pm2 logs antt --lines 10
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ antt               │ fork     │ 0    │ online    │ 0%       │ 55.8mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[TAILING] Tailing last 10 lines for [antt] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/antt-error.log last 10 lines:
+0|antt     |     at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+0|antt     |   code: 'EADDRINUSE',
+0|antt     |   errno: -98,
+0|antt     |   syscall: 'listen',
+0|antt     |   address: '0.0.0.0',
+0|antt     |   port: 5050
+0|antt     | }
+0|antt     | 
+0|antt     | Node.js v20.19.2
+0|antt     | 2:44:19 PM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=ah7ykWXhY9W1CDYLl17Wk (resolved id: /src/main.tsx?v=ah7ykWXhY9W1CDYLl17Wk). Does the file exist?
+
+/home/servidorvoipnvs/.pm2/logs/antt-out.log last 10 lines:
+0|antt     | 2:54:43 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:54:43 PM [express] serving on port 5050
+0|antt     | 2:54:53 PM [express] 🧹 Cache Manager: Parado
+0|antt     | 
+0|antt     | > rest-express@1.0.0 dev
+0|antt     | > NODE_ENV=development tsx server/index.ts --host 0.0.0.0 --port 5050
+0|antt     | 
+0|antt     | 2:55:02 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:55:02 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:55:02 PM [express] serving on port 5050
+
+^C
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ 

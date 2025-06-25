@@ -2622,10 +2622,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Verificar se a venda está no status correto para atualizar tipo de execução
-      if (sale.status !== "in_progress") {
+      // Permitir atualização para vendas pendentes, corrigidas, em andamento ou devolvidas
+      const allowedStatuses = ["pending", "corrected", "in_progress", "returned"];
+      if (!allowedStatuses.includes(sale.status)) {
         return res.status(400).json({ 
           error: "Não é possível atualizar tipo de execução", 
-          message: "Só é possível atualizar o tipo de execução de vendas com status em andamento."
+          message: `Só é possível atualizar o tipo de execução de vendas com status: ${allowedStatuses.join(", ")}.`
         });
       }
       

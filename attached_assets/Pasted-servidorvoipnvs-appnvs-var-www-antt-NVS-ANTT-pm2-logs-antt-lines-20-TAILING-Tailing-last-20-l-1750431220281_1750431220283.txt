@@ -1,0 +1,46 @@
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 logs antt --lines 20
+[TAILING] Tailing last 20 lines for [antt] process (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/logs/antt-error.log last 20 lines:
+0|antt     |       ^
+0|antt     | 
+0|antt     | Error: listen EADDRINUSE: address already in use 0.0.0.0:5050
+0|antt     |     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+0|antt     |     at listenInCluster (node:net:1965:12)
+0|antt     |     at doListen (node:net:2139:7)
+0|antt     |     at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+0|antt     | Emitted 'error' event on WebSocketServer instance at:
+0|antt     |     at Server.emit (node:events:524:28)
+0|antt     |     at emitErrorNT (node:net:1944:8)
+0|antt     |     at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+0|antt     |   code: 'EADDRINUSE',
+0|antt     |   errno: -98,
+0|antt     |   syscall: 'listen',
+0|antt     |   address: '0.0.0.0',
+0|antt     |   port: 5050
+0|antt     | }
+0|antt     | 
+0|antt     | Node.js v20.19.2
+0|antt     | 2:44:19 PM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=ah7ykWXhY9W1CDYLl17Wk (resolved id: /src/main.tsx?v=ah7ykWXhY9W1CDYLl17Wk). Does the file exist?
+
+/home/servidorvoipnvs/.pm2/logs/antt-out.log last 20 lines:
+0|antt     | > NODE_ENV=development tsx server/index.ts
+0|antt     | 
+0|antt     | 2:42:00 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:42:00 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:42:00 PM [express] serving on port 5050
+0|antt     | 2:42:50 PM [express] 🧹 Cache Manager: Parado
+0|antt     | 2:43:15 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:43:15 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:43:15 PM [express] serving on port 5050
+0|antt     | 2:44:20 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:44:20 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:44:20 PM [express] serving on port 5050
+0|antt     | 2:44:28 PM [express] 🧹 Cache Manager: Parado
+0|antt     | 2:44:49 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:44:49 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:44:49 PM [express] serving on port 5050
+0|antt     | 2:46:34 PM [express] 🧹 Cache Manager: Parado
+0|antt     | 2:53:19 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|antt     | 2:53:19 PM [websocket] WebSocket configurado no caminho /ws
+0|antt     | 2:53:19 PM [express] serving on port 5050
+
