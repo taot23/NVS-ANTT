@@ -3244,8 +3244,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             amount, 
             due_date AS "dueDate", 
             payment_date AS "paymentDate", 
-            payment_method_id AS "paymentMethodId",
-            payment_notes AS "paymentNotes",
             status, 
             notes, 
             created_at AS "createdAt", 
