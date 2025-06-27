@@ -3,3 +3,4 @@ env: standard
 
 env_variables:
   NODE_ENV: "production"
+  PORT: "5050"
