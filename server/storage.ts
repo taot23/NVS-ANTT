@@ -1521,7 +1521,6 @@ export class DatabaseStorage implements IStorage {
       totalAmount: "total_amount",
       orderNumber: "order_number",
       customerId: "customer_id",
-      paymentMethodId: "payment_method_id",
       sellerId: "seller_id",
       serviceTypeId: "service_type_id",
       serviceProviderId: "service_provider_id",
@@ -1574,7 +1573,6 @@ export class DatabaseStorage implements IStorage {
         orderNumber: row.order_number,
         customerId: row.customer_id,
         customerName: row.customer_name,
-        paymentMethodId: row.payment_method_id || null,
         sellerId: row.seller_id,
         serviceTypeId: row.service_type_id,
         serviceProviderId: row.service_provider_id,
@@ -1920,9 +1918,11 @@ export class DatabaseStorage implements IStorage {
       const { pool } = await import("./db");
       
       // Fazemos duas operações:
-      // 1. Buscamos os dados das parcelas
+      // 1. Buscamos os dados das parcelas (especificando colunas válidas)
       const installmentsResult = await pool.query(`
-        SELECT * FROM sale_installments 
+        SELECT id, sale_id, installment_number, due_date, payment_date, 
+               amount, status, notes, created_at, updated_at
+        FROM sale_installments 
         WHERE sale_id = $1
         ORDER BY installment_number
       `, [saleId]);
@@ -1968,8 +1968,6 @@ export class DatabaseStorage implements IStorage {
           amount: row.amount,
           status: row.status,
           notes: row.notes,
-          paymentMethodId: null, // Campo removido do esquema
-          paymentNotes: row.notes, // Usar notes como paymentNotes
           splitPayments: splitPayments,
           createdAt: new Date(row.created_at),
           updatedAt: new Date(row.updated_at)
