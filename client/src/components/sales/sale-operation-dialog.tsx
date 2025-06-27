@@ -894,7 +894,7 @@ export default function SaleOperationDialog({
                           saleItems.map((item: any) => (
                             <TableRow key={item.id}>
                               <TableCell className="font-medium">
-                                {services.find((s: any) => s.id === item.serviceId)?.name || `Serviço #${item.serviceId}`}
+                                {item.serviceName || `Serviço #${item.serviceId}`}
                               </TableCell>
                               <TableCell>
                                 {serviceTypes.find((t: any) => t.id === item.serviceTypeId)?.name || `Tipo #${item.serviceTypeId}`}
