@@ -516,7 +516,7 @@ export default function SaleDetailsDialog({ open, onClose, saleId }: SaleDetails
                           {saleItems.map((item: any) => (
                             <TableRow key={item.id}>
                               <TableCell className="font-medium">
-                                {findServiceName(item.serviceId)}
+                                {item.serviceName || `Serviço #${item.serviceId}`}
                                 {item.notes && (
                                   <p className="text-xs text-muted-foreground mt-1">{item.notes}</p>
                                 )}

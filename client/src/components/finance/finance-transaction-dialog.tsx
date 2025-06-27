@@ -455,16 +455,8 @@ export default function FinanceTransactionDialog({
                 ) : saleItems.length > 0 ? (
                   <div className="space-y-4">
                     {saleItems.map((item: any, index: number) => {
-                      // Buscar o nome do serviço nos dados já carregados
-                      const serviceName = (() => {
-                        if (item.serviceId === 1) return "INCLUSÃO DE PLACA";
-                        if (item.serviceId === 2) return "ALTERAÇÃO DE PLACA";
-                        if (item.serviceId === 3) return "TRANSFERÊNCIA";
-                        if (item.serviceId === 4) return "SEGUNDA VIA";
-                        if (item.serviceId === 5) return "RENOVAÇÃO";
-                        if (item.serviceId === 6) return "EXCLUSÃO DE PLACA";
-                        return `Serviço #${item.serviceId}`;
-                      })();
+                      // Usar o nome do serviço que já vem nos dados da API
+                      const serviceName = item.serviceName || `Serviço #${item.serviceId}`;
                       
                       return (
                         <div key={item.id || index} className="border rounded-lg p-4 bg-gray-50">
