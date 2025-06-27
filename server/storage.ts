@@ -2588,9 +2588,7 @@ export class DatabaseStorage implements IStorage {
          RETURNING *`,
         [
           formattedPaymentDate,
-          paymentMethodId,
-          notes || installment.paymentNotes,
-          JSON.stringify([{ timestamp: new Date().toISOString(), ...editDetails }]),
+          notes || 'Pagamento editado pelo admin',
           installmentId
         ]
       );
@@ -2635,9 +2633,7 @@ export class DatabaseStorage implements IStorage {
         status: updatedInstallment.status,
         notes: updatedInstallment.notes,
         createdAt: updatedInstallment.created_at,
-        updatedAt: updatedInstallment.updated_at,
-        paymentMethodId: updatedInstallment.payment_method_id,
-        paymentNotes: updatedInstallment.payment_notes
+        updatedAt: updatedInstallment.updated_at
       };
     } catch (error) {
       console.error(`❌ ERRO ao editar pagamento da parcela #${installmentId}:`, error);
@@ -2692,12 +2688,11 @@ export class DatabaseStorage implements IStorage {
           UPDATE sale_installments 
           SET status = 'paid', 
               payment_date = $1,
-              payment_method_id = $3,
               updated_at = NOW()
           WHERE id = $2
           RETURNING *
         `;
-        params = [formattedPaymentDate, installmentId, paymentMethodId];
+        params = [formattedPaymentDate, installmentId];
       } else {
         // Sem método de pagamento
         sql = `
@@ -2734,7 +2729,6 @@ export class DatabaseStorage implements IStorage {
         amount: updatedInstallment.amount,
         status: updatedInstallment.status,
         notes: updatedInstallment.notes,
-        paymentMethodId: updatedInstallment.payment_method_id,
         createdAt: updatedInstallment.created_at,
         updatedAt: updatedInstallment.updated_at
       };
