@@ -1574,7 +1574,7 @@ export class DatabaseStorage implements IStorage {
         orderNumber: row.order_number,
         customerId: row.customer_id,
         customerName: row.customer_name,
-        paymentMethodId: row.payment_method_id,
+        paymentMethodId: row.payment_method_id || null,
         sellerId: row.seller_id,
         serviceTypeId: row.service_type_id,
         serviceProviderId: row.service_provider_id,
@@ -1955,23 +1955,8 @@ export class DatabaseStorage implements IStorage {
         
         console.log(`💰 Parcela #${row.id} tem ${splitPayments.length} pagamentos divididos`);
         
-        // Se tivermos um método de pagamento principal, incluir também
-        if (row.payment_method_id) {
-          // Buscar informações do método principal
-          const methodResult = await pool.query(`
-            SELECT name FROM payment_methods WHERE id = $1
-          `, [row.payment_method_id]);
-          
-          const methodName = methodResult.rows.length > 0 ? methodResult.rows[0].name : `Método ${row.payment_method_id}`;
-          
-          // Adicionar o método principal à lista de pagamentos
-          splitPayments.unshift({
-            methodId: String(row.payment_method_id),
-            methodName: methodName,
-            amount: row.amount || '0',
-            isPrimary: true
-          });
-        }
+        // Nota: A coluna payment_method_id não existe na tabela sale_installments
+        // As informações de método de pagamento estão nos recibos (sale_payment_receipts)
         
         // Mapear para o formato esperado
         parsedInstallments.push({
@@ -1983,8 +1968,8 @@ export class DatabaseStorage implements IStorage {
           amount: row.amount,
           status: row.status,
           notes: row.notes,
-          paymentMethodId: row.payment_method_id,
-          paymentNotes: row.payment_notes,
+          paymentMethodId: null, // Campo removido do esquema
+          paymentNotes: row.notes, // Usar notes como paymentNotes
           splitPayments: splitPayments,
           createdAt: new Date(row.created_at),
           updatedAt: new Date(row.updated_at)
@@ -2597,11 +2582,9 @@ export class DatabaseStorage implements IStorage {
       const result = await pool.query(
         `UPDATE sale_installments 
          SET payment_date = $1, 
-             payment_method_id = $2, 
-             payment_notes = $3, 
-             updated_at = NOW(),
-             admin_edit_history = COALESCE(admin_edit_history, '[]')::jsonb || $4::jsonb
-         WHERE id = $5
+             notes = $2, 
+             updated_at = NOW()
+         WHERE id = $3
          RETURNING *`,
         [
           formattedPaymentDate,
