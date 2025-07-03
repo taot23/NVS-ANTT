@@ -9,12 +9,15 @@ RUN npm install
 # Copiar código-fonte
 COPY . .
 
+# Build da aplicação
+RUN npm run build
+
 # Variáveis de ambiente para produção
 ENV NODE_ENV=production
-ENV PORT=5050
+ENV PORT=8080
 
 # Expor a porta que o app vai usar
-EXPOSE 5050
+EXPOSE 8080
 
 # Comando para iniciar o app
 CMD ["npm", "run", "start"]

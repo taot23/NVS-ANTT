@@ -3,4 +3,17 @@ env: standard
 
 env_variables:
   NODE_ENV: "production"
-  PORT: "5050"
+  PORT: "8080"
+  # Configure sua DATABASE_URL aqui após criar o Cloud SQL
+  # DATABASE_URL: "postgresql://usuario:senha@/database?host=/cloudsql/PROJECT_ID:REGION:INSTANCE_NAME"
+  SESSION_SECRET: "sua_chave_secreta_muito_segura_aqui_2024"
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10
+  target_cpu_utilization: 0.8
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10

@@ -107,9 +107,32 @@ This is a comprehensive sales management system built with Node.js, React, and P
 - `.gcloudignore`: Deployment exclusion rules
 - `drizzle.config.ts`: Database migration configuration
 
+## Deployment Configuration
+
+### Google Cloud Platform Setup
+- **App Engine**: Configured for Node.js 20 runtime with auto-scaling
+- **Cloud SQL**: PostgreSQL 15 database for production data persistence
+- **Build Process**: Automated build pipeline with Vite and esbuild
+- **Port Configuration**: Port 8080 for production (Google Cloud standard)
+
+### Deployment Files
+- `app.yaml`: App Engine configuration with scaling rules
+- `Dockerfile`: Container configuration for cloud deployment  
+- `deploy.sh`: Automated deployment script
+- `google-cloud-setup.sh`: Initial infrastructure setup script
+- `migrate-production.js`: Database migration script for production
+- `.gcloudignore`: Files to exclude from cloud deployment
+
+### Production Environment Variables
+- `NODE_ENV=production`
+- `PORT=8080`
+- `DATABASE_URL`: Cloud SQL PostgreSQL connection string
+- `SESSION_SECRET`: Secure session encryption key
+
 ## Changelog
 
-- June 27, 2025. Initial setup
+- July 3, 2025: Google Cloud deployment configuration added
+- June 27, 2025: Initial setup
 
 ## User Preferences
 
