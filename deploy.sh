@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# Script de Deploy para Google Cloud Platform
+# Script de Deploy para Google Cloud App Engine + Neon Database
 # Execute com: ./deploy.sh
 
 set -e
 
-echo "🚀 Iniciando deploy para Google Cloud Platform..."
+echo "🚀 Deploy para Google Cloud App Engine + Neon Database"
+echo "=================================================="
 
 # Verificar se gcloud está instalado
 if ! command -v gcloud &> /dev/null; then
@@ -31,11 +32,40 @@ fi
 
 echo "📦 Projeto: $PROJECT_ID"
 
-# Verificar se app.yaml tem DATABASE_URL configurada
+# Verificar se app.yaml tem DATABASE_URL do Neon configurada
 if grep -q "# DATABASE_URL" app.yaml; then
-    echo "⚠️  ATENÇÃO: Configure a DATABASE_URL no app.yaml antes do deploy!"
-    echo "   Edite o arquivo app.yaml e descomente/configure a linha DATABASE_URL"
-    read -p "   Pressione Enter após configurar a DATABASE_URL..."
+    echo ""
+    echo "⚠️  CONFIGURAÇÃO NECESSÁRIA:"
+    echo "   1. Crie conta gratuita no Neon: https://neon.tech"
+    echo "   2. Crie novo database"
+    echo "   3. Copie a string de conexão"
+    echo "   4. Edite app.yaml e configure DATABASE_URL"
+    echo ""
+    echo "   Formato da string Neon:"
+    echo "   postgresql://user:pass@ep-xxx.us-east-1.aws.neon.tech/db?sslmode=require"
+    echo ""
+    read -p "   Pressione Enter após configurar a DATABASE_URL no app.yaml..."
+fi
+
+# Verificar se App Engine existe
+echo "🔍 Verificando App Engine..."
+if ! gcloud app describe > /dev/null 2>&1; then
+    echo "❌ App Engine não encontrado. Criando..."
+    echo "   Regiões recomendadas:"
+    echo "   - southamerica-east1 (São Paulo)"
+    echo "   - us-central1 (Iowa)"
+    
+    read -p "   Digite a região [southamerica-east1]: " REGION
+    REGION=${REGION:-southamerica-east1}
+    
+    gcloud app create --region=$REGION
+    echo "✅ App Engine criado na região $REGION"
+fi
+
+# Verificar se tem dependências instaladas
+if [ ! -d "node_modules" ]; then
+    echo "📦 Instalando dependências..."
+    npm install
 fi
 
 # Build da aplicação
@@ -44,28 +74,40 @@ npm run build
 
 # Deploy no App Engine
 echo "🚀 Fazendo deploy no App Engine..."
+echo "   (Isso pode demorar alguns minutos...)"
 gcloud app deploy --quiet
 
 # Obter URL da aplicação
-APP_URL=$(gcloud app browse --no-launch-browser)
+APP_URL=$(gcloud app browse --no-launch-browser 2>/dev/null || echo "https://$PROJECT_ID.uc.r.appspot.com")
 
 echo ""
-echo "✅ Deploy concluído com sucesso!"
+echo "🎉 Deploy concluído com sucesso!"
+echo "=================================================="
+echo ""
 echo "🌐 URL da aplicação: $APP_URL"
 echo ""
-echo "📋 Próximos passos:"
-echo "1. Execute as migrações do banco de dados:"
+echo "📋 PRÓXIMOS PASSOS:"
+echo ""
+echo "1. 🔍 Verificar logs da aplicação:"
 echo "   gcloud app logs tail -s default"
-echo "   (Acesse a URL da aplicação e verifique se está funcionando)"
 echo ""
-echo "2. Configure o banco de dados se necessário:"
-echo "   node migrate-production.js"
+echo "2. 🗄️  O banco Neon será configurado automaticamente"
+echo "   (Tabelas criadas na primeira execução)"
 echo ""
-echo "3. Configure domínio personalizado (opcional):"
+echo "3. 👤 Login inicial:"
+echo "   Usuário: admin"
+echo "   Senha: admin123"
+echo ""
+echo "4. 🌍 Domínio personalizado (opcional):"
 echo "   gcloud app domain-mappings create seudominio.com"
 echo ""
-echo "🔍 Para monitorar logs:"
-echo "   gcloud app logs tail -s default"
+echo "💡 COMANDOS ÚTEIS:"
+echo "• Ver logs: gcloud app logs tail -s default"
+echo "• Ver versões: gcloud app versions list"
+echo "• Rollback: gcloud app versions migrate VERSAO_ANTERIOR"
 echo ""
-echo "📊 Para ver métricas:"
-echo "   gcloud app services list"
+echo "💰 CUSTOS:"
+echo "• Neon Database: Gratuito (0.5GB)"
+echo "• App Engine: Tier gratuito + ~R$0-150/mês"
+echo ""
+echo "✅ Aplicação deployada com sucesso!"

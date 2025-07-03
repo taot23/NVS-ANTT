@@ -18,3 +18,7 @@ fixed-*.txt
 resumo-*.md
 instrucoes-*.md
 deploy-google-cloud.md
+google-cloud-setup.sh
+migrate-production.js
+COMO-FAZER-DEPLOY.md
+deploy-neon-appengine.md
