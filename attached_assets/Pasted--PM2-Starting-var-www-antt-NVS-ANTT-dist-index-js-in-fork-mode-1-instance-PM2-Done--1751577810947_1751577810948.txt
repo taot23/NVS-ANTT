@@ -1,0 +1,51 @@
+
+[PM2] Starting /var/www/antt/NVS-ANTT/dist/index.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ vendas-app         │ fork     │ 0    │ online    │ 0%       │ 16.6mb   │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+servidorvoipnvs@appnvs:/var/www/antt/NVS-ANTT$ pm2 log
+
+>>>> In-memory PM2 is out-of-date, do:
+>>>> $ pm2 update
+In memory PM2 version: 6.0.6
+Local PM2 version: 6.0.8
+
+[TAILING] Tailing last 15 lines for [all] processes (change the value with --lines option)
+/home/servidorvoipnvs/.pm2/pm2.log last 15 lines:
+PM2        | 2025-07-03T21:22:55: PM2 log: pid=500728 msg=failed to kill - retrying in 100ms
+PM2        | 2025-07-03T21:22:55: PM2 log: Process with pid 500728 still alive after 1600ms, sending it SIGKILL now...
+PM2        | 2025-07-03T21:22:55: PM2 log: App [antt:0] exited with code [0] via signal [SIGKILL]
+PM2        | 2025-07-03T21:22:55: PM2 log: pid=500728 msg=process killed
+PM2        | 2025-07-03T21:22:57: PM2 log: App [vendas-app:0] starting in -fork mode-
+PM2        | 2025-07-03T21:22:57: PM2 log: App [vendas-app:0] online
+PM2        | 2025-07-03T21:23:04: PM2 log: App [vendas-app:0] exited with code [1] via signal [SIGINT]
+PM2        | 2025-07-03T21:23:04: PM2 log: App [vendas-app:0] starting in -fork mode-
+PM2        | 2025-07-03T21:23:04: PM2 log: App [vendas-app:0] online
+PM2        | 2025-07-03T21:23:06: PM2 log: App [vendas-app:0] exited with code [1] via signal [SIGINT]
+PM2        | 2025-07-03T21:23:06: PM2 log: App [vendas-app:0] starting in -fork mode-
+PM2        | 2025-07-03T21:23:06: PM2 log: App [vendas-app:0] online
+PM2        | 2025-07-03T21:23:07: PM2 log: App [vendas-app:0] exited with code [1] via signal [SIGINT]
+PM2        | 2025-07-03T21:23:07: PM2 log: App [vendas-app:0] starting in -fork mode-
+PM2        | 2025-07-03T21:23:07: PM2 log: App [vendas-app:0] online
+
+/home/servidorvoipnvs/.pm2/logs/vendas-app-error.log last 15 lines:
+0|vendas-a | 9:23:04 PM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=jU3FORRwMkyvAtFwzKGjJ (resolved id: /src/main.tsx?v=jU3FORRwMkyvAtFwzKGjJ). Does the file exist?
+0|vendas-a | 9:23:06 PM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=Z3TOKsUcl_ZH_x0F5pco3 (resolved id: /src/main.tsx?v=Z3TOKsUcl_ZH_x0F5pco3). Does the file exist?
+0|vendas-a | 9:23:07 PM [vite] Pre-transform error: Failed to load url /src/main.tsx?v=q4s78HTgSgqlMjRu3d3PD (resolved id: /src/main.tsx?v=q4s78HTgSgqlMjRu3d3PD). Does the file exist?
+
+/home/servidorvoipnvs/.pm2/logs/vendas-app-out.log last 15 lines:
+0|vendas-a | 9:22:58 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|vendas-a | 9:22:59 PM [websocket] WebSocket configurado no caminho /ws
+0|vendas-a | 9:22:59 PM [express] serving on port 5050
+0|vendas-a | 9:23:05 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|vendas-a | 9:23:05 PM [websocket] WebSocket configurado no caminho /ws
+0|vendas-a | 9:23:05 PM [express] serving on port 5050
+0|vendas-a | 9:23:07 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|vendas-a | 9:23:07 PM [websocket] WebSocket configurado no caminho /ws
+0|vendas-a | 9:23:07 PM [express] serving on port 5050
+0|vendas-a | 9:23:08 PM [express] 🧹 Cache Manager: Limpeza automática configurada para cada 30 minutos
+0|vendas-a | 9:23:08 PM [websocket] WebSocket configurado no caminho /ws
+0|vendas-a | 9:23:09 PM [express] serving on port 5050
